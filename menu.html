@@ -1,0 +1,132 @@
+
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>المنيو - MO23 Cookies</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .menu-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .menu-img:hover {
+      transform: scale(1.1);
+    }
+
+    .menu-title {
+      font-weight: bold;
+      margin-top: 8px;
+      color: #ffeac1;
+    }
+
+    .popup {
+      position: fixed;
+      display: none;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .popup span {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="cookie.png" alt="MO23 Cookies Logo" />
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="menu.html">المنيو</a>
+      <a href="order.html">طلب</a>
+      <a href="about.html">عنّا</a>
+      <a href="contact.html">تواصل</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>العروض (باكدجات)</h2>
+    <div class="menu" id="menu-packages"></div>
+
+    <h2>المنتجات العادية</h2>
+    <div class="menu" id="menu-products"></div>
+  </section>
+
+  <div id="image-popup" class="popup">
+    <span id="close-popup">×</span>
+    <img id="popup-img" src="">
+  </div>
+
+
+<!-- Popup لتكبير الصور -->
+<div id="image-popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:999;">
+  <img id="popup-img" src="" style="max-width:90%; max-height:90%; border-radius:10px;">
+  <span id="close-popup" style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;">&times;</span>
+</div>
+
+  <script>
+    const packages = [
+      { name: 'First Bite Box', image: 'bite-poster.jpg' },
+      { name: 'Weekend Treat Box', image: 'weekend.jpg' },
+      { name: 'Office Share Pack', image: 'office.jpg' },
+      { name: 'Family Time Deal', image: 'family.jpg' },
+      { name: 'Surprise Gift Box', image: 'gift.jpg' }
+    ];
+
+    const products = [
+      { name: 'كلاسيك كوكيز', image: 'classic.jpg' },
+      { name: 'كوكيز دارك', image: 'dark.jpg' },
+      { name: 'أوريو كوكيز', image: 'oreo.jpg' },
+      { name: 'نوتيلا كوكيز', image: 'nutella.jpg' },
+      { name: 'كوكيز موسمية', image: 'seasonal.jpg' },
+      { name: 'بروكيز', image: 'brookies2.jpg' }
+    ];
+    
+
+    function renderItems(arr, containerId) {
+      const container = document.getElementById(containerId);
+      arr.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'menu-item';
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="menu-img" onclick="showImage('${item.image}')">
+          <p class="menu-title">${item.name}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function showImage(src) {
+      document.getElementById("popup-img").src = src;
+      document.getElementById("image-popup").style.display = "flex";
+    }
+
+    document.getElementById("close-popup").onclick = () => {
+      document.getElementById("image-popup").style.display = "none";
+    }
+
+    renderItems(packages, 'menu-packages');
+    renderItems(products, 'menu-products');
+  </script>
+  
+</body>
+</html>
